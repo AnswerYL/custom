@@ -8,7 +8,6 @@ package com.answer.wx.service.impl;
 import com.answer.wx.entity.Test;
 import com.answer.wx.mapper.TestMapper;
 import com.answer.wx.service.TestService;
-import org.answer.wx.aop.annotation.Before;
 import org.answer.wx.beans.annotation.Autowired;
 import org.answer.wx.beans.annotation.Service;
 import org.answer.wx.transaction.Transactional;
@@ -63,7 +62,6 @@ public class TestServiceImpl implements TestService {
 
     @Override
     public boolean save() {
-
         Test test = new Test();
 //        test.setId(3L);
         test.setName("answer");
@@ -106,9 +104,9 @@ public class TestServiceImpl implements TestService {
 
     @Override
     @Transactional
-    public boolean delTrans(int id) {
-        boolean ret = testMapper.delete(id);
-        if (ret) {
+    public boolean delTran(int id) {
+        int ret = testMapper.delete(id);
+        if (ret > 0) {
             throw new RuntimeException("transaction 删除失败");
         }
         return false;

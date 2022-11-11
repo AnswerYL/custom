@@ -77,10 +77,10 @@ public class TestController {
         return testService.saveTran();
     }
 
-    @RequestMapping(value = "delTrans", method = RequestMethod.GET)
+    @RequestMapping(value = "delTran", method = RequestMethod.GET)
     @ResponseBody
-    public boolean delTrans(@RequestParam("id") int id) {
-        return testService.delTrans(id);
+    public boolean delTran(@RequestParam("id") int id) {
+        return testService.delTran(id);
     }
 
     @RequestMapping(value = "update", method = RequestMethod.GET)

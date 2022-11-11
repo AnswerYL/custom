@@ -21,5 +21,5 @@ import org.answer.wx.base.BaseMapper;
 @Mapper
 public interface TestMapper extends BaseMapper<Test> {
     @Delete("delete from test where id=#{id}")
-    boolean delete(@Param("id") Integer id);
+    int delete(@Param("id") Integer id);
 }

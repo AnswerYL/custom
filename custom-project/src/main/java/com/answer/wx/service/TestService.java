@@ -35,5 +35,5 @@ public interface TestService {
     boolean update(int id);
 
     // 删除事务
-    boolean delTrans(int id);
+    boolean delTran(int id);
 }
