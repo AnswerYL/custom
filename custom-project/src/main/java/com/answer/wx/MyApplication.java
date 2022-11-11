@@ -6,7 +6,9 @@
 package com.answer.wx;
 
 import org.answer.wx.SpringApplication;
+import org.answer.wx.aop.annotation.EnableAspectJAutoProxy;
 import org.answer.wx.beans.annotation.ComponentScan;
+import org.answer.wx.beans.annotation.MapperScan;
 import org.answer.wx.web.annotation.SpringBootApplication;
 
 /**
@@ -18,6 +20,8 @@ import org.answer.wx.web.annotation.SpringBootApplication;
  */
 @SpringBootApplication
 @ComponentScan("com.answer.wx")
+@MapperScan(basePackages = {"com.answer.wx.mapper"})
+@EnableAspectJAutoProxy
 public class MyApplication {
     public static void main(String[] args) {
         SpringApplication.run(MyApplication.class, args);

@@ -5,22 +5,35 @@
  */
 package com.answer.wx.service;
 
+import com.answer.wx.entity.Test;
 import org.answer.wx.beans.annotation.Service;
 import org.apache.log4j.Logger;
 
+import java.util.List;
+
 /**
  * TestService
- * @description 测试服务类
+ * @description test服务接口
  * @author answer_wx
  * @date 2022/11/8 21:41
  * @version 1.0
  */
-@Service
-public class TestService {
-    Logger log = Logger.getLogger(TestService.class);
+public interface TestService {
+    String test();
 
-    public String test() {
-        log.info("controller 请求");
-        return System.nanoTime() + " Hello Custom Spring Project";
-    }
+    String test(int i);
+
+    List<Test> selectAll();
+
+    void delete(int id);
+
+    boolean save();
+
+    // 添加 事务
+    boolean saveTran();
+
+    boolean update(int id);
+
+    // 删除事务
+    boolean delTrans(int id);
 }

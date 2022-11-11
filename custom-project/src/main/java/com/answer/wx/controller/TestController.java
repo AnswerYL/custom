@@ -5,12 +5,16 @@
  */
 package com.answer.wx.controller;
 
+import com.answer.wx.entity.Test;
 import com.answer.wx.service.TestService;
 import org.answer.wx.beans.annotation.Autowired;
 import org.answer.wx.web.annotation.Controller;
 import org.answer.wx.web.annotation.RequestMapping;
+import org.answer.wx.web.annotation.RequestParam;
 import org.answer.wx.web.annotation.ResponseBody;
 import org.answer.wx.web.enums.RequestMethod;
+
+import java.util.List;
 
 /**
  * Test
@@ -35,5 +39,53 @@ public class TestController {
             e.printStackTrace();
         }
         return "请求失败！";
+    }
+
+    @RequestMapping(value = "testParam", method = RequestMethod.GET)
+    @ResponseBody
+    public String testParam(@RequestParam("i") int i) {
+        try {
+            return testService.test(i);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "请求失败！";
+    }
+
+    @RequestMapping(value = "getAll", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Test> getAll() {
+        return testService.selectAll();
+    }
+
+    @RequestMapping(value = "delete", method = RequestMethod.GET)
+    @ResponseBody
+    public boolean delete(@RequestParam("id") int id) {
+        testService.delete(id);
+        return true;
+    }
+
+    @RequestMapping(value = "save", method = RequestMethod.GET)
+    @ResponseBody
+    public boolean save() {
+        return testService.save();
+    }
+
+    @RequestMapping(value = "saveTran", method = RequestMethod.GET)
+    @ResponseBody
+    public boolean saveTrans() {
+        return testService.saveTran();
+    }
+
+    @RequestMapping(value = "delTrans", method = RequestMethod.GET)
+    @ResponseBody
+    public boolean delTrans(@RequestParam("id") int id) {
+        return testService.delTrans(id);
+    }
+
+    @RequestMapping(value = "update", method = RequestMethod.GET)
+    @ResponseBody
+    public boolean update(@RequestParam("id") int id) {
+        return testService.update(id);
     }
 }

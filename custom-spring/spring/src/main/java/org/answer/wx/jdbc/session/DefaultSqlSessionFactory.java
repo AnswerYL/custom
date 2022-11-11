@@ -8,6 +8,7 @@ package org.answer.wx.jdbc.session;
 import org.answer.wx.session.SqlConfig;
 import org.answer.wx.session.SqlSession;
 import org.answer.wx.util.MySQLUtil;
+import org.apache.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -21,6 +22,8 @@ import java.sql.SQLException;
  * @version 1.0
  */
 public class DefaultSqlSessionFactory implements SqlSessionFactory {
+
+    Logger log = Logger.getLogger(DefaultSqlSessionFactory.class);
 
     private SqlConfig config;
 
@@ -47,7 +50,15 @@ public class DefaultSqlSessionFactory implements SqlSessionFactory {
     }
 
     public Connection getConnection() {
-        return MySQLUtil.getConnection();
+        try {
+            if (connection == null || connection.isClosed()) {
+                connection = DriverManager.getConnection(config.url, config.username, config.password);
+                log.info("数据库链接成功！");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return connection;
     }
 
     public Connection newConnection() {

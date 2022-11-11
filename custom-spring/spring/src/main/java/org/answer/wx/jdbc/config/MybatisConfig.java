@@ -108,8 +108,7 @@ public class MybatisConfig implements OrmConfigure {
                 loadComponentByPath(basePackage + "." + fileName, childPath);
             } else {
                 String className = fileName.substring(0, fileName.lastIndexOf("."));
-                String packageName = path.replaceAll("\\\\", ".").replaceAll("/", ".");
-                className = packageName + "." + className;
+                className = basePackage + "." + className;
                 loadComponentByClazz(className);
             }
         }

@@ -83,9 +83,9 @@ public class AnalyticMethod {
     }
 
     private static boolean baseSql(Method targetMethod) {
-        Method[] methods = BaseMapper.class.getMethods();
+        Method[] methods = BaseMapper.class.getDeclaredMethods();
         for (Method method : methods) {
-            if (targetMethod.equals(method)) {
+            if (method.equals(targetMethod)) {
                 return true;
             }
         }

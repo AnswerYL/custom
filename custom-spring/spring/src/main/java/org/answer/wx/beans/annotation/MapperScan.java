@@ -5,6 +5,8 @@
  */
 package org.answer.wx.beans.annotation;
 
+import org.answer.wx.jdbc.config.MybatisConfig;
+
 import java.lang.annotation.*;
 
 /**
@@ -17,7 +19,7 @@ import java.lang.annotation.*;
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Import
+@Import(MybatisConfig.class)
 public @interface MapperScan {
     String[] basePackages() default {};
 }

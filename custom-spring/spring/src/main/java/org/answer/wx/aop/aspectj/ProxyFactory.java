@@ -22,8 +22,8 @@ import java.util.List;
  * @version 1.0
  */
 public class ProxyFactory {
-    public static <T, V> V getInstance(V targetObject, List<Proxy> proxyList) {
-        return (V) Enhancer.create(targetObject.getClass(), new MethodInterceptor() {
+    public static <T, V> V getInstance(V targetObj, List<Proxy> proxyList) {
+        return (V) Enhancer.create(targetObj.getClass(), new MethodInterceptor() {
             /**
              * 代理方法，每次调用目标方法都会先创建一个ProxyChain对象，然后调用该对象的doProxyChain方法
              * @param targetObject
@@ -35,7 +35,7 @@ public class ProxyFactory {
              */
             @Override
             public Object intercept(Object targetObject, Method targetMethod, Object[] methodParams, MethodProxy methodProxy) throws Throwable {
-                return new ProxyChain(targetObject, targetMethod, methodProxy, methodParams, proxyList);
+                return new ProxyChain(targetObj, targetMethod, methodProxy, methodParams, proxyList).doProxyChain();
             }
         });
     }

@@ -295,10 +295,17 @@ public class ActionApplicationContext extends AbstractActionFactory {
         // 目标对象--切面代理对象列表的映射
         Map<Object, List<Proxy>> targetMap = createTargetMap(aspectMap);
 
-        targetMap.forEach((key, value) -> {
-            Object proxy = ProxyFactory.getInstance(key, value);
-            proxyMap.put(key.getClass().getName(), proxy);
-        });
+//        targetMap.forEach((key, value) -> {
+//            Object proxy = ProxyFactory.getInstance(key, value);
+//            proxyMap.put(key.getClass().getName(), proxy);
+//        });
+
+        for (Map.Entry<Object, List<Proxy>> targetEntry : targetMap.entrySet()) {
+            Object targetObj = targetEntry.getKey();
+            List<Proxy> proxyList = targetEntry.getValue();
+            Object proxy = ProxyFactory.getInstance(targetObj, proxyList);
+            proxyMap.put(targetObj.getClass().getName(), proxy);
+        }
     }
 
 
@@ -421,8 +428,9 @@ public class ActionApplicationContext extends AbstractActionFactory {
         });
     }
 
-    private void autowiredProxy(Field field, Object o) {
+    private void autowiredProxy(Field field, Object bean) {
         Class<?> type = field.getType();
+        log.info("proxyMap====" + this.proxyMap);
         String name = null;
         for (String key : beanMap.keySet()) {
             Object obj = beanMap.get(key);
@@ -441,7 +449,7 @@ public class ActionApplicationContext extends AbstractActionFactory {
             try {
                 if (this.proxyMap.containsKey(name)) {
                     field.setAccessible(true);
-                    field.set(o, this.proxyMap.get(name));
+                    field.set(bean, this.proxyMap.get(name));
                 }
             } catch (IllegalAccessException e) {
                 e.printStackTrace();

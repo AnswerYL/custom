@@ -21,7 +21,7 @@ public class SqlConfig {
     Logger log = Logger.getLogger(SqlConfig.class);
 
     private Properties properties;
-    private StringBuilder PREFIX = new StringBuilder("jdbc.");
+    private String PREFIX = "jdbc.";
     public String url;
     public String username;
     public String password;
@@ -37,29 +37,29 @@ public class SqlConfig {
     }
 
     private void validProperties(Properties properties) {
-        StringBuilder url = PREFIX.append("url");
-        StringBuilder username = PREFIX.append("username");
-        StringBuilder password = PREFIX.append("password");
-        StringBuilder driver = PREFIX.append("driver");
-        if (properties.contains(url)) {
-            this.url = this.properties.getProperty(url.toString());
+        String url = PREFIX.concat("url");
+        String username = PREFIX.concat("username");
+        String password = PREFIX.concat("password");
+        String driver = PREFIX.concat("driver");
+        if (properties.containsKey(url)) {
+            this.url = this.properties.getProperty(url);
         } else {
-            log.error("配置文件中找不到" + url.toString() + "属性");
+            log.error("配置文件中找不到" + url + "属性");
         }
-        if (properties.contains(username)) {
-            this.username = this.properties.getProperty(username.toString());
+        if (properties.containsKey(username)) {
+            this.username = this.properties.getProperty(username);
         } else {
-            log.error("配置文件中找不到" + username.toString() + "属性");
+            log.error("配置文件中找不到" + username + "属性");
         }
-        if (properties.contains(password)) {
-            this.password = this.properties.getProperty(password.toString());
+        if (properties.containsKey(password)) {
+            this.password = this.properties.getProperty(password);
         } else {
-            log.error("配置文件中找不到" + password.toString() + "属性");
+            log.error("配置文件中找不到" + password + "属性");
         }
-        if (properties.contains(driver)) {
-            this.driver = this.properties.getProperty(driver.toString());
+        if (properties.containsKey(driver)) {
+            this.driver = this.properties.getProperty(driver);
         } else {
-            log.error("配置文件中找不到" + driver.toString() + "属性");
+            log.error("配置文件中找不到" + driver + "属性");
         }
     }
 
